@@ -23,7 +23,7 @@ class CreateProject extends Component{
 	}
 	render() {
 	return (
-		<div className="container">
+		<div id="container"className="container">
 		<form onSubmit={this.handleSubmit} className="white">
 
 			<h5 className="grey-text text-darken-2">
@@ -40,7 +40,7 @@ class CreateProject extends Component{
 			</div>
 
 			<div className="input-field">
-			<button className="btn pink lighten-1 z-depth-0" >Create</button>
+			<button className="btn #4dd0e1 z-depth-0" >Create</button>
 			</div>		
 		</form>
 			
@@ -50,7 +50,8 @@ class CreateProject extends Component{
 }
 const mapDispatchToProps = (dispatch) =>{
 	return{
-		createProject: (project) => dispatch(createProject(project))
+		createProject: (project) => dispatch(createProject(project)) //here we pass the project which is stored in the state
+									//call the dispatch and an action creator
 	}
 	
 }
