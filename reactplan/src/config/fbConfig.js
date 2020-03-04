@@ -17,3 +17,5 @@ var config = {
   firebase.firestore().settings({timestampsInSnapshots: true});
 
   export default firebase
+
+  //fbconfig basically shows which project we are connecting to
