@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-
-class SignUp extends Component{
+import { connect } from 'react-redux'
+import { signIn } from '../../store/actions/authActions'
+class SignIn extends Component{
 	state = {
 		email:'',
 		password:''
@@ -18,9 +19,11 @@ class SignUp extends Component{
 	
 	handleSubmit = (e) => {
 		e.preventDefault();
-		console.log(this.state)
+		this.props.signIn(this.state)
+		
 	}
 	render() {
+		const { authError} =this.props
 	return (
 		<div className="container">
 		<form onSubmit={this.handleSubmit} className="white">
@@ -40,6 +43,10 @@ class SignUp extends Component{
 
 			<div className="input-field">
 			<button className="btn #4dd0e1 z-depth-0" >Login</button>
+			<div class="teal-text center">
+	{ authError ? <p>{authError}</p> : null}
+			</div>
+
 			</div>		
 		</form>
 			
@@ -47,5 +54,14 @@ class SignUp extends Component{
 	)
 }
 }
-
-export default SignUp
+const mapStateToProps = (state) =>{
+	return {
+		authError: state.auth.authError
+	}
+}  
+const mapDispatchToProps = (dispatch) =>{
+	return {
+			signIn: (credentials) => dispatch(signIn(credentials))
+	} //we return what we want to attach to the props of this component
+}
+export default connect(mapStateToProps, mapDispatchToProps) (SignIn) //the null is for mapStateToProps 
