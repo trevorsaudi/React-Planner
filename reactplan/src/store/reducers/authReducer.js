@@ -16,6 +16,10 @@ const authReducer = (state= initState, action) =>{
                     ...state, //prevents overriding of the previous state
                     authError: null
                 }
+
+            case 'SIGNOUT_SUCCESS':
+                console.log('signout success')
+                return state;
                 default:
                     return state;
             }
