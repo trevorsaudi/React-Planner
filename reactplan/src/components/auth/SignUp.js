@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-
+import { Redirect } from 'react-router'
+import {connect } from 'react-redux'
 class SingUp extends Component{
 	state = {
 		email:'',
@@ -23,6 +24,9 @@ class SingUp extends Component{
 		console.log(this.state)
 	}
 	render() {
+		const { auth } = this.props
+		if(auth.uid) return <Redirect to = '/' />
+
 	return (
 		<div className="container">
 		<form onSubmit={this.handleSubmit} className="white">
@@ -48,7 +52,7 @@ class SingUp extends Component{
 				<input type="text" id="lastname" onChange={this.handleChange}/>
 			</div>
 			<div className="input-field">
-			<button className="btn pink lighten-1 z-depth-0" >Sign Up</button>
+			<button className="btn #4dd0e1 lighten-1 z-depth-0" >Sign Up</button>
 			</div>		
 		</form>
 			
@@ -57,4 +61,10 @@ class SingUp extends Component{
 }
 }
 
-export default SingUp
+const mapStateToProps = (state) =>{
+	return {
+		auth: state.firebase.auth
+	}
+}
+
+export default connect(mapStateToProps)(SingUp)

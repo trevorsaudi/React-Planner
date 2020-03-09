@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {createProject} from '../../store/actions/projectActions'
+import { Redirect } from 'react-router'
 class CreateProject extends Component{
 	state = {
 		title:'',
@@ -22,6 +23,8 @@ class CreateProject extends Component{
 		this.props.createProject(this.state)
 	}
 	render() {
+		const { auth } = this.props;
+		if(!auth.uid) return <Redirect to = '/signin' />
 	return (
 		<div id="container"className="container">
 		<form onSubmit={this.handleSubmit} className="white">
@@ -48,6 +51,12 @@ class CreateProject extends Component{
 	)
 }
 }
+
+const mapStateToProps = (state) =>{
+	return {
+		auth: state.firebase.auth
+	}
+}
 const mapDispatchToProps = (dispatch) =>{
 	return{
 		createProject: (project) => dispatch(createProject(project)) //here we pass the project which is stored in the state
@@ -56,5 +65,5 @@ const mapDispatchToProps = (dispatch) =>{
 	
 }
 
-export default connect(null,mapDispatchToProps)(CreateProject)
+export default connect(mapStateToProps,mapDispatchToProps)(CreateProject)
 //the first parameter for the connect function is mapStateToProps
